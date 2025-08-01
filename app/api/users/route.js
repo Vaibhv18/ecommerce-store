@@ -5,7 +5,7 @@ import bcrypt from 'bcryptjs';
 export async function GET() {
   try {
     const [rows] = await pool.query(
-      'SELECT id, email, isAdmin, createdAt FROM users ORDER BY createdAt DESC'
+      'SELECT id, name, email, isAdmin, created_at FROM users ORDER BY created_at DESC'
     );
     
     return Response.json(rows);
@@ -37,15 +37,17 @@ export async function POST(req) {
     // Hash password
     const hashedPassword = await bcrypt.hash(password, 12);
 
-    // Create user
+    // Create user with UUID
+    const userId = `user_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
     const [result] = await pool.query(
-      'INSERT INTO users (name, email, password) VALUES (?, ?, ?)',
-      [name, email, hashedPassword]
+      'INSERT INTO users (id, name, email, password, isAdmin) VALUES (?, ?, ?, ?, ?)',
+      [userId, name, email, hashedPassword, false]
     );
 
     const [newUser] = await pool.query(
-      'SELECT id, email, isAdmin, createdAt FROM users WHERE id = ?',
-      [result.insertId]
+      'SELECT id, name, email, isAdmin, created_at FROM users WHERE id = ?',
+      [userId]
     );
 
     return Response.json(newUser[0], { status: 201 });
