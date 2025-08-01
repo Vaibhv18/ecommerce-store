@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useCart } from "@/contexts/CartContext";
 import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function CartPage() {
   const { items, totalItems, totalPrice, removeFromCart, updateQuantity, clearCart } = useCart();
@@ -16,11 +17,11 @@ export default function CartPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-20">
               {/* Logo */}
-              <a href="/" className="flex-shrink-0">
+              <Link href="/" className="flex-shrink-0">
                 <h1 className="text-2xl sm:text-3xl font-bold text-black">
                   Shop
                 </h1>
-              </a>
+              </Link>
               {/* Back Button */}
               <button 
                 onClick={() => router.back()}
@@ -44,7 +45,7 @@ export default function CartPage() {
               <ShoppingBag className="w-24 h-24 text-gray-400 mx-auto mb-8" />
               <h1 className="text-3xl font-bold text-gray-900 mb-4">Your cart is empty</h1>
               <p className="text-gray-600 mb-8 text-lg">
-                Looks like you haven't added any items to your cart yet.
+                Looks like you haven&apos;t added any items to your cart yet.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
@@ -68,11 +69,11 @@ export default function CartPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <a href="/" className="flex-shrink-0">
+            <Link href="/" className="flex-shrink-0">
               <h1 className="text-2xl sm:text-3xl font-bold text-black">
                 Shop
               </h1>
-            </a>
+            </Link>
             {/* Back Button */}
             <button 
               onClick={() => router.back()}

@@ -5,7 +5,7 @@ import { generateSitemapData } from '@/lib/seo';
 export async function GET() {
   try {
     // Get all products for sitemap
-    const [products] = await pool.query('SELECT id, title, category FROM products');
+    const [products] = await pool.query('SELECT id, title FROM products');
     
     // Define static pages
     const staticPages = [
